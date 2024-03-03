@@ -1,0 +1,17 @@
+{
+	"name": "daily-wallpaper",
+	"version": "1.0.0",
+	"description": "Changes wallpapers daily",
+	"main": "index.js",
+	"scripts": {
+		"test": "modules/test.js"
+	},
+	"author": "fajfaj",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^16.4.5",
+		"unsplash-js": "^7.0.19",
+		"wallpaper": "^7.2.0"
+	},
+	"type": "module"
+}
