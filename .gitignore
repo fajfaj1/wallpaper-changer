@@ -3,3 +3,4 @@ example.json
 node_modules
 node_modules/**
 logs/**
+image/**
