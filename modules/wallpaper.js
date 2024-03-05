@@ -16,14 +16,21 @@ import download from "download";
 
 export default class Wallpaper {
 	constructor(data) {
-		this.data = data.response;
+		this.data = data;
 	}
 
-	static async fetchWallpaper() {
-		const response = await unsplash.photos.getRandom({
-			query: "high-resolution wallpaper",
+	static async fetchWallpaper(color, query) {
+		// Takes a result corresponding to the day of the month
+		let response = await unsplash.search.getPhotos({
+			perPage: 1,
+			page: Math.round(Math.random() * 25),
+			query: `highresolution ${query.join(" ")}`,
 			orientation: "landscape",
+			orderBy: "editorial",
+			// color,
 		});
+
+		response = response.response.results[0];
 		return new Wallpaper(response);
 	}
 
@@ -35,5 +42,6 @@ export default class Wallpaper {
 		}
 
 		download(url, destinationPath, { filename: FILE_NAME });
+		return path.join(destinationPath, FILE_NAME);
 	}
 }

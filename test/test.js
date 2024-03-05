@@ -2,14 +2,17 @@ import assert from "assert";
 import dotenv from "dotenv";
 dotenv.config();
 import process from "node:process";
-import Wallpaper from "../modules/wallpaper.js";
+
 import fs from "node:fs";
+
+import Wallpaper from "../modules/wallpaper.js";
+import updateWallpaper from "../modules/desktop.js";
 
 const { FILE_NAME } = process.env;
 
 const wallpaper = await Wallpaper.fetchWallpaper();
 
-describe("Wallpaper", async () => {
+describe("wallpaper.js", () => {
 	describe("#Wallpaper.fetchWallpaper()", () => {
 		it("should return a new Wallpaper object", async () => {
 			assert.ok(wallpaper instanceof Wallpaper);
@@ -18,8 +21,18 @@ describe("Wallpaper", async () => {
 
 	describe("#wallpaper.saveImage()", () => {
 		it("should save the image to the specified directory", async () => {
-			await wallpaper.saveImage("./image");
-			assert.ok(fs.existsSync(`./image/${FILE_NAME}`));
+			const path = await wallpaper.saveImage("./image");
+			assert.ok(fs.existsSync(path));
+		});
+	});
+});
+
+describe("desktop.js", () => {
+	describe("#updateWallpaper()", () => {
+		it("should update the wallpaper", () => {
+			assert.doesNotThrow(() => {
+				updateWallpaper();
+			});
 		});
 	});
 });
