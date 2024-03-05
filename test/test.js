@@ -7,10 +7,9 @@ import fs from "node:fs";
 
 import Wallpaper from "../modules/wallpaper.js";
 import updateWallpaper from "../modules/desktop.js";
+import Pexels from "../modules/pexels.js";
 
-const { FILE_NAME } = process.env;
-
-const wallpaper = await Wallpaper.fetchWallpaper();
+const wallpaper = await Wallpaper.fetchWallpaper("", ["nature"]);
 
 describe("wallpaper.js", () => {
 	describe("#Wallpaper.fetchWallpaper()", () => {
@@ -33,6 +32,17 @@ describe("desktop.js", () => {
 			assert.doesNotThrow(() => {
 				updateWallpaper();
 			});
+		});
+	});
+});
+
+const pexels = new Pexels();
+describe("pexels.js", () => {
+	describe("#Pexels.search()", () => {
+		it("Should return a JSON object", async () => {
+			const response = await pexels.search("nature", "green", 1);
+			console.log(response);
+			assert.ok(response);
 		});
 	});
 });
