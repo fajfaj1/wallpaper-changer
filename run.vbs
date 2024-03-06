@@ -1,10 +1,11 @@
-' color = InputBox("Valid values are: black_and_white, black, white, yellow, orange, red, purple, magenta, green, teal, and blue.", "What color would you like your wallpaper to be?")
-' If color = "" Then
-'     WScript.Quit
-' End If
+Set objFSO = CreateObject("Scripting.FileSystemObject")
 
-query = InputBox("Wallpaper query", "What would you like to search for?")
+query = InputBox("What would you like to have on your wallpaper?", "Wallpaper query", "landscape", vbQuestion + vbOKCancel)
+if(query = "") then
+    MsgBox "No query provided, exiting", vbOKOnly + vbExclamation
+    WScript.Quit
+end if
 
 Set shell = CreateObject("WScript.Shell")
-shell.CurrentDirectory = "C:\Users\Ignacy Pêka³a\Projects\Tools\daily-wallpaper"
+shell.CurrentDirectory = objFSO.GetParentFolderName(WScript.ScriptFullName)
 shell.Run "node . " + query
