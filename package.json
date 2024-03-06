@@ -7,6 +7,10 @@
 		"test": "mocha"
 	},
 	"author": "fajfaj",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fajfaj1/wallpaper-changer.git"
+	},
 	"license": "ISC",
 	"dependencies": {
 		"dotenv": "^16.4.5",
