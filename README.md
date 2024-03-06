@@ -47,4 +47,4 @@ The additional scripts will obviously only work with Windows, but the main scrip
 
 ## Randomness
 
-The script by default will chose a random photo out of 20 search results. You can change this by modifying the number at line 21 in [`index.js`](./index.js)
+The script by default will chose a random photo out of 20 search results. You can change this by modifying the number at line 21 in [`index.js`](https://github.com/fajfaj1/wallpaper-changer/blob/cd5eb2d950c73a84f3edac3e83882242f5962374/index.js#L21C30-L21C32).
