@@ -18,7 +18,7 @@ import { setWallpaper } from "wallpaper";
 	const response = await pexels.search(
 		query,
 		undefined,
-		Math.round(Math.random() * 15)
+		Math.round(Math.random() * 20)
 	);
 	const photo = response.photos[0];
 
