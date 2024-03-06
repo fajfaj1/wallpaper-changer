@@ -6,23 +6,8 @@ const { FILE_NAME, FILE_DIR } = env;
 import fs from "node:fs";
 import path from "node:path";
 
-import updateWallpaper from "../modules/desktop.js";
 import Pexels from "../modules/pexels.js";
 import download from "../modules/downloader.js";
-
-// describe("desktop.js", () => {
-// 	describe("#updateWallpaper()", () => {
-// 		it("should update the wallpaper", () => {
-// 			const filePath = path.join(
-// 				FILE_DIR,
-// 				FILE_NAME.replace("%TIME%", new Date().toISOString())
-// 			);
-// 			assert.doesNotThrow(() => {
-// 				updateWallpaper(filePath);
-// 			});
-// 		});
-// 	});
-// });
 
 const pexels = new Pexels();
 describe("pexels.js", () => {
