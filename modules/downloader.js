@@ -18,7 +18,6 @@ export default function download(url, filePath) {
 
 		const stream = Readable.fromWeb(response.body).pipe(writer);
 		stream.on("close", () => {
-			console.log("resolving");
 			resolve(filePath);
 		});
 		stream.on(error, err => reject(err));
