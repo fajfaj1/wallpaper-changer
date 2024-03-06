@@ -1,22 +1,55 @@
-import Wallpaper from "./modules/wallpaper.js";
-import updateWallpaper from "./modules/desktop.js";
+import env from "./modules/env.js";
+const { FILE_DIR, FILE_NAME } = env;
+
+import path from "node:path";
+
+import Pexels from "./modules/pexels.js";
+import download from "./modules/downloader.js";
 import fs from "node:fs";
+
+import { setWallpaper } from "wallpaper";
+
 (async () => {
-	const color = process.argv[2];
-	const query = process.argv.slice(2);
+	// const color = process.argv[2];
+	const query = process.argv.slice(2).join(" ");
 
-	const wallpaper = await Wallpaper.fetchWallpaper(color, query);
+	const pexels = new Pexels();
+	console.log("Fetching image from Pexels...");
+	const response = await pexels.search(
+		query,
+		undefined,
+		Math.round(Math.random() * 15)
+	);
+	const photo = response.photos[0];
 
+	console.log("Logging the query...");
 	fs.writeFileSync(
-		"./logs/log.txt",
-		`[${new Date()}] ${query} ${wallpaper.data.slug} ${wallpaper.data.id}`,
-		{ flag: "a" }
+		"logs/logs.txt",
+		`[${new Date()}] "${query}" - ${photo.url}\n`,
+		{
+			flag: "a",
+		}
 	);
 
-	await wallpaper.saveImage("./image");
-	setTimeout(async () => {
-		await updateWallpaper();
+	const filePath = path.join(
+		FILE_DIR,
+		FILE_NAME.replace(
+			"%TIME%",
+			new Date()
+				.toISOString()
+				.replace(/\.[0-9]{3}Z/, "")
+				.replace(/:/g, "-")
+		)
+	);
 
-		console.log("Wallpaper updated successfully");
-	}, 2000);
+	console.log("Purging the directory...");
+	// Purge the directory
+	if (fs.existsSync(FILE_DIR)) fs.rmSync(FILE_DIR, { recursive: true });
+	fs.mkdirSync(FILE_DIR, { recursive: true });
+
+	console.log("Downloading the image to disk...");
+	await download(response.photos[0].src.original, filePath);
+
+	console.log("Setting the wallpaper...");
+	await setWallpaper(filePath);
 })();

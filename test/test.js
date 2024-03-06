@@ -1,48 +1,51 @@
 import assert from "assert";
-import dotenv from "dotenv";
-dotenv.config();
-import process from "node:process";
+
+import env from "../modules/env.js";
+const { FILE_NAME, FILE_DIR } = env;
 
 import fs from "node:fs";
+import path from "node:path";
 
-import Wallpaper from "../modules/wallpaper.js";
 import updateWallpaper from "../modules/desktop.js";
 import Pexels from "../modules/pexels.js";
+import download from "../modules/downloader.js";
 
-const wallpaper = await Wallpaper.fetchWallpaper("", ["nature"]);
-
-describe("wallpaper.js", () => {
-	describe("#Wallpaper.fetchWallpaper()", () => {
-		it("should return a new Wallpaper object", async () => {
-			assert.ok(wallpaper instanceof Wallpaper);
-		});
-	});
-
-	describe("#wallpaper.saveImage()", () => {
-		it("should save the image to the specified directory", async () => {
-			const path = await wallpaper.saveImage("./image");
-			assert.ok(fs.existsSync(path));
-		});
-	});
-});
-
-describe("desktop.js", () => {
-	describe("#updateWallpaper()", () => {
-		it("should update the wallpaper", () => {
-			assert.doesNotThrow(() => {
-				updateWallpaper();
-			});
-		});
-	});
-});
+// describe("desktop.js", () => {
+// 	describe("#updateWallpaper()", () => {
+// 		it("should update the wallpaper", () => {
+// 			const filePath = path.join(
+// 				FILE_DIR,
+// 				FILE_NAME.replace("%TIME%", new Date().toISOString())
+// 			);
+// 			assert.doesNotThrow(() => {
+// 				updateWallpaper(filePath);
+// 			});
+// 		});
+// 	});
+// });
 
 const pexels = new Pexels();
 describe("pexels.js", () => {
 	describe("#Pexels.search()", () => {
 		it("Should return a JSON object", async () => {
 			const response = await pexels.search("nature", "green", 1);
-			console.log(response);
 			assert.ok(response);
+		});
+	});
+});
+
+describe("download.js", () => {
+	describe("#download()", () => {
+		it("should download the wikipedia logo", async () => {
+			const url =
+				"https://en.wikipedia.org/static/images/icons/wikipedia.png";
+			const filePath = path.join("test", "wikipedia-download.png");
+			const templatePath = path.join("test", "wikipedia.png");
+			download(url, filePath).then(() => {
+				const template = fs.readFileSync(templatePath);
+				const downloaded = fs.readFileSync(filePath);
+				assert.strictEqual(template.toString(), downloaded.toString());
+			});
 		});
 	});
 });

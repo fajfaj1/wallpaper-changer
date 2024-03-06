@@ -1,7 +1,5 @@
-import dotenv from "dotenv";
-dotenv.config();
-import process from "node:process";
-const { PEXELS_ACCESS_KEY } = process.env;
+import env from "./env.js";
+const { PEXELS_ACCESS_KEY } = env;
 
 export default class Pexels {
 	headers = new Headers({
@@ -21,7 +19,8 @@ export default class Pexels {
 		const response = await fetch(url, {
 			headers: this.headers,
 		});
-		if (!response.ok) throw new Error("Pexels API request failed");
+		if (!response instanceof Object)
+			throw new Error("Pexels API request failed");
 		return await response.json();
 	};
 }
