@@ -23,6 +23,7 @@ import { setWallpaper } from "wallpaper";
 	const photo = response.photos[0];
 
 	console.log("Logging the query...");
+	if (!fs.existsSync("logs")) fs.mkdirSync("logs");
 	fs.writeFileSync(
 		"logs/logs.txt",
 		`[${new Date()}] "${query}" - ${photo.url}\n`,
