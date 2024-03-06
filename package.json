@@ -4,6 +4,7 @@
 	"description": "Changes wallpapers daily",
 	"main": "index.js",
 	"scripts": {
+		"start": "node index.js",
 		"test": "mocha"
 	},
 	"author": "fajfaj",
