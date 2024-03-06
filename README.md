@@ -24,6 +24,23 @@ It comes with two scripts for windows:
 3. Create an `.env` file to store your secrets and setup
     > There is an example in `EXAMPLE.env` file
 
+## Usage
+
+```
+npm start [query]
+```
+
+Example:
+
+```
+npm start nature landscape
+
+```
+
+## Logs
+
+The script stores logs of all wallpapers applied in [`logs.txt`](./logs.txt), just so you can go back to your favourite ones.
+
 ## Compatibility
 
 The additional scripts will obviously only work with Windows, but the main script should work on any platform (tested only on Windows)
