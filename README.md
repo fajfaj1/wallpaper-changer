@@ -22,7 +22,7 @@ It comes with two scripts for windows:
 1. Clone the repository
 2. Run `npm install` to install dependencies
 3. Create an `.env` file to store your secrets and setup
-    > There is an example in `EXAMPLE.env` file
+    > There is an example in [`EXAMPLE.env`](./EXAMPLE.env) file
 
 ## Usage
 
